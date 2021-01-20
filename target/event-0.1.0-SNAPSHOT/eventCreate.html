@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="content-type"
+	content="application/xhtml+xml; charset=UTF-8" />
+<title>EventScheduler</title>
+</head>
+
+<body>
+	<h1>Schedule Event!</h1>
+	<nav>
+		<a href="index.html">Home</a> 
+		<a href="eventCreate.html">Create Event</a>
+		<a href="searchByMail.html">Search Event by mail</a> 
+		<a href="searchByDate.html">Search Event by date</a>
+	    <a href="searchByTimeRange.html">Search by time range</a>
+	</nav>
+
+	<br>
+	<h4>Create Event</h4>
+	<label for="title" class="inputLabel">Enter event title: </label>
+	<input type="text" id="title"></input>
+	<br>
+	<br>
+	<label for="duration" class="inputLabel">Enter event duration in minutes:
+	</label>
+	<select id="duration" name="duration">
+	</select>
+	<!-- <input type="text" id="duration"></input>-->
+	<br>
+	<br>
+	<label for="eventime">Event Date and Time:</label>
+	<input type="datetime-local" id="eventtime" name="eventtime">
+	<button type="button" id="postEvent">Create Event</button>
+	<br>
+	<br>
+
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="eventscheduler.js"></script>
+</body>
+</html>

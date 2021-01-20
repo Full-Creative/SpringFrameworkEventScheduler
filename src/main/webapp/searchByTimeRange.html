@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta http-equiv="content-type"
+	content="application/xhtml+xml; charset=UTF-8" />
+<title>EventScheduler</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<h1>Schedule Event!</h1>
+	<nav>
+		<a href="index.html">Home</a> 
+		<a href="eventCreate.html">Create Event</a>
+		<a href="searchByMail.html">Search Event by mail</a>
+		<a href="searchByDate.html">Search Event by date</a>
+		<a href="searchByTimeRange.html">Search by time range</a>
+	</nav>
+	<br>
+	<h4>Search Event by time range</h4>
+	<label for="start">Start</label>
+	<input type="datetime-local" id="start" name="start">
+	<label for="end">End</label>
+	<input type="datetime-local" id="end" name="end">
+	<button type="button" id="getEventsByTimeRange">Select</button>
+	<br>
+	<br>
+	<table id="participantEvent"></table>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="eventscheduler.js"></script>
+</body>
+</html>
