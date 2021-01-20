@@ -11,28 +11,28 @@ public class EventServiceTest {
 	public EventServiceImp eventService = new EventServiceImp();
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent() {
+	public void testAddEvent() throws DataBaseException {
 		Event eventDetails = new Event();
 		eventDetails.setEventTime(0);
 		eventService.addEvent(eventDetails);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent1() {
+	public void testAddEvent1() throws DataBaseException {
 		Event eventDetails = new Event();
 		eventDetails.setEventDuration(0);
 		assertEquals(eventDetails, eventService.addEvent(eventDetails));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent2() {
+	public void testAddEvent2() throws DataBaseException {
 		Event eventDetails = new Event();
 		eventDetails.setEventID(null);
 		assertEquals(eventDetails, eventService.addEvent(eventDetails));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent3() {
+	public void testAddEvent3() throws DataBaseException {
 		assertEquals(null, eventService.addEvent(null));
 	}
 

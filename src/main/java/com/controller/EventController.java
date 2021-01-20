@@ -34,10 +34,9 @@ public class EventController {
 		try {
 			eventService.addEvent(event);
 			return "Created event";
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
+		} catch (DataBaseException | IllegalArgumentException e) {
+			return "Failed to create event.";
 		}
-		return "Failed to create";
 	}
 
 	@GetMapping(value = "/event", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -52,14 +51,10 @@ public class EventController {
 		try {
 			eventService.modifyEvent(event);
 			return "Modified event";
-		} catch (IllegalArgumentException e) {
-			System.out.println(e.getMessage());
-		} catch (DataBaseException e) {
-			e.printStackTrace();
-		} catch (EntityNotFoundException e) {
-			System.out.println("Event not found");
+		} catch (EntityNotFoundException | DataBaseException | IllegalArgumentException e) {
+			return "Failed to update.Event not found";
 		}
-		return "Failed to update";
+
 	}
 
 	@RequestMapping(value = "/event", method = RequestMethod.DELETE)
@@ -70,9 +65,9 @@ public class EventController {
 			return "Deleted";
 
 		} catch (IllegalArgumentException | EntityNotFoundException e) {
-			System.out.println(e.getMessage());
+			return "Event not found. Failed to delete";
 		}
-		return "Failed to delete";
+
 	}
 
 	@GetMapping(value = "/eventdate", produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -80,16 +75,20 @@ public class EventController {
 	public List<Event> getEventByDate(@RequestParam("date") String date) {
 		try {
 			return eventHelper.retrieveByDate(date);
-		} catch (ParseException e) {
+		} catch (ParseException | IllegalArgumentException e) {
+			return null;
 		}
 
-		return eventService.sortEventCreatedTime();
 	}
 
 	@GetMapping(value = "/timerange", produces = { MediaType.APPLICATION_JSON_VALUE })
 	@ResponseBody
 	public List<Event> getEventByTimeRange(@RequestParam("start") Long start, @RequestParam("end") Long end) {
-		return eventHelper.retrieveByTimeRange(start, end);
+		try {
+			return eventHelper.retrieveByTimeRange(start, end);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 
 	}
 

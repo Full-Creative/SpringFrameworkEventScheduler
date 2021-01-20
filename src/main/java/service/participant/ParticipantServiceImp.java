@@ -48,7 +48,7 @@ public class ParticipantServiceImp implements ParticipantService {
 		eventDB.removeParticipant(id);
 	}
 
-	public List<Event> retrieveEvents(String id) throws EntityNotFoundException, ParseException {
+	public List<Event> retrieveEvents(String id) throws EntityNotFoundException, NullPointerException {
 		return eventDB.retrieveEventByEmail(id);
 	}
 

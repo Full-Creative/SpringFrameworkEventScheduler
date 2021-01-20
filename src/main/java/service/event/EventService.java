@@ -9,7 +9,7 @@ import model.Event;
 import model.ParticipantDetails;
 
 public interface EventService {
-	public Event addEvent(Event eventDetails);
+	public Event addEvent(Event eventDetails) throws DataBaseException;
 
 	public Event modifyEvent(Event event) throws DataBaseException, EntityNotFoundException;
 

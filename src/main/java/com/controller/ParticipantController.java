@@ -1,9 +1,7 @@
 package com.controller;
 
-import java.text.ParseException;
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 import datastore.DataBaseException;
-import helper.SerializerHelper;
 import model.Event;
 import model.ParticipantDetails;
 import service.event.EventServiceImp;
@@ -33,11 +30,10 @@ public class ParticipantController {
 	public List<Event> getEventByMail(@RequestParam("email") String email) {
 		try {
 			return participantService.retrieveEvents(email);
-		} catch (EntityNotFoundException | ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (EntityNotFoundException | NullPointerException e) {
+			System.out.println(e.getMessage());
+			return null;
 		}
-		return null;
 
 	}
 
@@ -48,16 +44,11 @@ public class ParticipantController {
 		EventServiceImp eventService = new EventServiceImp();
 		try {
 			eventService.addParticipant(participant);
-			return new ResponseEntity<>("Added Participant!", HttpStatus.OK);
+			return ResponseEntity.status(200).body("Added Participant!");
 		} catch (EntityNotFoundException e) {
-			// response.getWriter().print("Failed participant");
-			System.out.println("Event not available");
+			return ResponseEntity.status(501).body("Event unavailable");
+		} catch (DataBaseException e) {
+			return ResponseEntity.status(501).body("Participant does not exist please create!");
 		}
-		// doGet(request, response);
-		catch (DataBaseException e) {
-			return new ResponseEntity<>("Participant does not exist please create!", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return new ResponseEntity<>("Failed!", HttpStatus.INTERNAL_SERVER_ERROR);
-
 	}
 }

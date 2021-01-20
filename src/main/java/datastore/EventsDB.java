@@ -314,7 +314,7 @@ public class EventsDB {
 		return email;
 	}
 
-	public List<Event> retrieveEventByEmail(String email) throws EntityNotFoundException, ParseException {
+	public List<Event> retrieveEventByEmail(String email) throws EntityNotFoundException,NullPointerException {
 	//Filter to get participant row of given email
 		Query participantQuery = new Query("Participant");
 		Filter participantEmailFilter = new Query.FilterPredicate("ParticipantEmail", FilterOperator.EQUAL, email);
