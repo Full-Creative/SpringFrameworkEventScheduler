@@ -1,3 +1,5 @@
+
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -5,7 +7,7 @@ import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
-import helper.ConnectionHelper;
+import com.eventschedule.helper.ConnectionHelper;
 
 @SuppressWarnings("serial")
 public class CronServlet extends HttpServlet {

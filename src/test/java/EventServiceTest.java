@@ -1,15 +1,16 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.google.appengine.api.datastore.EntityNotFoundException;
 
-import datastore.DataBaseException;
-import model.Event;
-import model.ParticipantDetails;
-import service.event.EventServiceImp;
+import com.eventschedule.datastore.DataBaseException;
+import com.eventschedule.model.Event;
+import com.eventschedule.model.ParticipantDetails;
+import com.eventschedule.service.event.EventServiceImp;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class EventServiceTest {
 	public EventServiceImp eventService = new EventServiceImp();
-
+//test case name convention
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testAddEvent() throws DataBaseException {
 		Event eventDetails = new Event();
@@ -18,21 +19,21 @@ public class EventServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent1() throws DataBaseException {
+	public void testAddEventDuration() throws DataBaseException {
 		Event eventDetails = new Event();
 		eventDetails.setEventDuration(0);
 		assertEquals(eventDetails, eventService.addEvent(eventDetails));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent2() throws DataBaseException {
+	public void testAddEventID() throws DataBaseException {
 		Event eventDetails = new Event();
 		eventDetails.setEventID(null);
 		assertEquals(eventDetails, eventService.addEvent(eventDetails));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddEvent3() throws DataBaseException {
+	public void testAddNullEvent() throws DataBaseException {
 		assertEquals(null, eventService.addEvent(null));
 	}
 
@@ -62,7 +63,7 @@ public class EventServiceTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAddParticipant2() throws EntityNotFoundException, DataBaseException {
+	public void testAddNullParticipant() throws EntityNotFoundException, DataBaseException {
 		assertEquals(null, eventService.addParticipant(null));
 	}
 

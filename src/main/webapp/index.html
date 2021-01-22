@@ -5,64 +5,134 @@
 	content="application/xhtml+xml; charset=UTF-8" />
 <title>EventScheduler</title>
 <link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-	<h1>Schedule Event!</h1>
-	<nav>
-		<a href="index.html">Home</a> 
-		<a href="eventCreate.html">Create Event</a>
-		<a href="searchByMail.html">Search Event by mail</a>
-		<a	href="searchByDate.html">Search Event by date</a>
-		<a href="searchByTimeRange.html">Search by time range</a>
-	</nav>
-	<br>
-	<br>
-	<div id="loading">Loading events..</div>
-	<table id="events"></table>
-	<br>
-	<br>
+	<h1>
+		<a href="index.html">Schedule Event!</a>
+	</h1>
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+		<li><a data-toggle="tab" href="#searchByTime">Search By Time Range</a></li>
+		<li><a data-toggle="tab" href="#searchByDate">Search By Date</a></li>
+	</ul>
 
-	<!-- The Modal --
-	<div id="myModal" class="modal">
+	<div class="tab-content">
+		<div id="home" class="tab-pane fade in active">
+		<br>
+			<div id="searchByMail">
+				<input type="text" placeholder="Enter participant Email"  id="email"></input>
+				<button type="button" id="getEventsByMail" >Search</button>
+				
+			</div>
 
-		<!-- Modal content --
-		<div class="modal-content">
-			<span class="close">&times;</span>
-			<p>Some text in the Modal..</p>
+			<br> <br>
+			<!--  -->
+
+			<br>
+
+			<div id="loading">Loading events..</div>
+			<table class="events"></table>
+			<br> <br>
+			<button type="button" id="newEvent">Add new Event</button>
+			<br> <br>
+		</div>
+		<div id="searchByTime" class="tab-pane fade">
+			<br> <label for="start">Start</label> <input
+				type="datetime-local" id="start" name="start"> <label
+				for="end">End</label> <input type="datetime-local" id="end"
+				name="end">
+			<button type="button" id="getEventsByTimeRange">Select</button>
+			<br><br>
+			<table class="events"></table>
+			<br> <br>
 		</div>
 
-	</div>-->
+		<div id="searchByDate" class="tab-pane fade">
+		<br>
+			<label for="eventDate">Select date:</label> <input type="date"
+				id="eventDate" name="eventDate">
+			<button type="button" id="getEventsByDate">Enter date</button>
+			<br><br>
+			<table class="events"></table>
+			<br> <br>
+		</div>
+
+
+		<br>
+	</div>
+	</div>
+
+
+	<!-- 	<nav>
+		<a href="index.html">Home</a> <a href="eventCreate.html">Create
+			Event</a> <a href="searchByMail.html">Search Event by mail</a> <a
+			href="searchByDate.html">Search Event by date</a> <a
+			href="searchByTimeRange.html">Search by time range</a>
+	</nav>
+-->
+	<div id="user"></div>
+	<br>
+	<br>
+	<button type="button" id="exit">Exit</button>
+
+	<br>
+
+	<div id="createModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span> <label for="title"
+				class="inputLabel">Enter event title: </label> <input type="text"
+				id="title"></input> <br> <br> <label for="duration"
+				class="inputLabel">Enter event duration in minutes: </label> <select
+				id="duration" name="duration">
+			</select>
+			<!-- <input type="text" id="duration"></input>-->
+			<br> <br> <label for="time">Event Date and Time:</label> <input
+				type="datetime-local" id="time" name="eventtime"><br>
+			<button type="button" id="postEvent">Create Event</button>
+		</div>
+	</div>
+
 	<div id="updateModal" class="modal">
 		<div class="modal-content">
-			<span class="close">&times;</span> 
-			Event Title: <input type="text"	id="eventTitle"></input> <br><br>
-			Event Duration: <select id="duration" name="duration"></select><!--<input type="text" id="eventDuration"></input>-->
-			<br><br>
-			Event Time: <input type="datetime-local" id="eventTime"></input><br><br>
+			<span class="close">&times;</span> Event Title: <input type="text"
+				id="eventTitle"></input> <br> <br> Event Duration: <select
+				id="eventduration" name="duration"></select>
+			<!--<input type="text" id="eventDuration"></input>-->
+			<br> <br> Event Time: <input type="datetime-local"
+				id="eventTime"></input><br> <br>
 			<button type="button" id="update">Update</button>
 		</div>
 	</div>
+
 	<div id="participantModal" class="modal">
 		<div class="modal-content">
-			<span class="close">&times;</span> 
-			 <div id="participantAddition">
-			 Participant Name: <input type="text" id="name"></input> <br><br>
-			 Participant Time Zone: 
-			 <select id="timezone" name="timezone">
-			 	<option value="Asia/Kolkata">Asia/Kolkata</option>
-  				<option value="Asia/Singapore">Asia/Singapore</option>
- 			 </select><br><br>
-			 </div>
-			 Participant Email: <input type="text" id="email"></input> <br><br>			   
+			<span class="close">&times;</span>
+			<div id="participantAddition">
+				Participant Name: <input type="text" id="name"></input> <br> <br>
+				Participant Time Zone: <select id="timezone" name="timezone">
+					<option value="Asia/Kolkata">Asia/Kolkata</option>
+					<option value="Asia/Singapore">Asia/Singapore</option>
+				</select><br> <br>
+			</div>
+			Participant Email: <input type="text" id="participantmail"></input> <br>
+			<br>
 			<button type="button" id="addParticipant">Add</button>
 		</div>
 	</div>
+
 	<br>
 	<br>
 	<br>
 
-	<script src="https://MomentJS.com/downloads/moment.js"></script> 
+	<script src="https://MomentJS.com/downloads/moment.js"></script>
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="eventscheduler.js"></script>
 </body>

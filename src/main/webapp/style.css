@@ -1,7 +1,18 @@
-table, th, td {
-	border: 1px solid black;
+a:link {
+  text-decoration: none;
 }
 
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
@@ -36,4 +47,55 @@ table, th, td {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+#user{
+	position: absolute;
+	top: 8px;
+	right: 16px;
+}
+#exit{
+	
+	position: absolute;
+	top: 30px;
+	right: 16px;
+}
+
+#usermodal {
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+
+#searchByMail{
+	float: right;
+}
+
+
+.events {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 100%;
+	border: 1px solid gray;
+}
+
+td, th {
+/*	padding: 12px !important;*/
+}
+
+.events tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.events tr:hover {
+	background-color: #ddd;
+}
+
+.events th  {
+	
+	background-color: #4CAF50;
+	color: white;
 }
