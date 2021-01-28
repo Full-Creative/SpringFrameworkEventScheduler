@@ -50,7 +50,6 @@ var ajaxCalls = function() {
 			type: "GET",
 			url: "event/timerange?start=" + start + "&end=" + end,
 			contentType: "application/json",
-			//	data: JSON.stringify(obj),
 			success: show.printEvents
 		});
 	}
