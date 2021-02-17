@@ -84,6 +84,8 @@ a:active {
 
 td, th {
 /*	padding: 12px !important;*/
+word-break: normal;
+padding: 20%;
 }
 
 .events tr:nth-child(even) {

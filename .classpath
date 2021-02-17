@@ -31,5 +31,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/User.DESKTOP-SAM078B/Downloads/java-uuid-generator-4.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/javamail1_4_4/javamail-1.4.4/lib/mailapi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/User.DESKTOP-SAM078B/Downloads/jakarta.activation-api-1.2.1.jar"/>
 	<classpathentry kind="output" path="target/event-0.1.0-SNAPSHOT/WEB-INF/classes"/>
 </classpath>

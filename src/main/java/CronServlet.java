@@ -19,7 +19,7 @@ public class CronServlet extends HttpServlet {
 			
 			if (httpRequest.getHeader("X-Appengine-Cron").equals("true")) {
 				HttpURLConnection connection = conHelper
-						.createConnection(new URL("https://hooks.zapier.com/hooks/catch/9269338/o09n1hp/"));
+						.createConnection(new URL("https://hooks.zapier.com/hooks/catch/9269338/opwwbyx/"));
 				String msg = "{\"msg\": \"Hello from cron job\"}";
 				conHelper.IOOperation(msg, connection);
 			}

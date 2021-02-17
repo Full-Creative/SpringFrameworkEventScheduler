@@ -6,20 +6,27 @@ import com.eventschedule.datastore.DataBaseException;
 import com.eventschedule.datastore.EventsDB;
 import com.eventschedule.model.Event;
 import com.eventschedule.model.ParticipantDetails;
-import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.eventschedule.taskqueue.ConfirmationTask;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.gson.Gson;
+
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class EventServiceImp implements EventService {
 	public EventsDB eventDB;
+	public ConfirmationTask task;
 
 	public EventServiceImp() {
 		eventDB = new EventsDB();
+		task = new ConfirmationTask();
 	}
 
 	@Override
-	public Event addEvent(Event eventDetails){
+	public Event addEvent(Event eventDetails) {
 		if (eventDetails == null || eventDetails.getEventTime() == 0 || eventDetails.getEventDuration() == 0)
 			throw new IllegalArgumentException("Event Details not available");
 //		boolean isInserted = false;
@@ -59,9 +66,33 @@ public class EventServiceImp implements EventService {
 		isInserted = eventDB.addParticipant(participant);
 		if (!isInserted)
 			throw new DataBaseException("Not inserted");
-
+		String confirmationMsg = messageGenerator(participant);
+		task.enQueue(participant.getEmail(), confirmationMsg);
 		return participant;
 
+	}
+
+	public String messageGenerator(ParticipantDetails p) {
+		DateFormat simple = new SimpleDateFormat("dd MMM yyyy HH:mm:ss:SSS");
+		Event event;
+		String result = null;
+
+		try {
+			event = retrieveById(p.getEventID());
+			result = "<html><h1 style=\"text-align:center;\">Confirmation</h1>Hi " + p.getName()
+					+ ", <br>You've been successfully enrolled in the event!  Here are the event details<br><br>"
+					+ "<table style=\"text-align:left;\">" + "  <tr><th>Event Name: </th><td>" + event.getEventTitle()
+					+ "</td></tr>" + "    <tr><th>Duration:</th>" + "    <td>" + event.getEventDuration() / 60000
+					+ "</td></tr>" + "    <tr><th>Time:</th>" + "    <td>"
+					+ simple.format(new Date(event.getEventTime())) + "</td></tr>" + "</table></html>";
+//			String message = "Your event " + event.getEventTitle() + " is confirmed at "
+//					+ simple.format(new Date(event.getEventTime())) + " for " + event.getEventDuration() / 60000
+//					+ " mins";
+
+		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override

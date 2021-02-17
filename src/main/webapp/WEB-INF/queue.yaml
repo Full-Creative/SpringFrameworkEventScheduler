@@ -1,0 +1,9 @@
+queue:
+ - name: queue-blue
+   rate: 5/s
+
+ - name: queue-red
+   rate: 1/s
+
+ - name: my-queue
+   rate: 5/s

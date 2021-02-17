@@ -12,6 +12,17 @@ $(document).ready(function() {
 var ajaxCalls = function() {
 	var show = print();
 
+	function exportEvents() {
+		$.ajax({
+			type: "GET",
+			url: "taskqueues/enqueue?key=1",
+			success: alert(response),
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(textStatus, errorThrown);
+			}
+
+		});
+	}
 	function getEvents() {
 		$.ajax({
 			type: "GET",
@@ -182,7 +193,7 @@ var ajaxCalls = function() {
 		});
 	}
 	return {
-
+		exportEvents: exportEvents,
 		addEventParticipant: addEventParticipant,
 		updateEvent: updateEvent,
 		deleteEvent: deleteEvent,
@@ -249,7 +260,7 @@ var print = function() {
 	}
 
 	function append(response) {
-		var result = ('<tr class="' + response[i].eventID + '">' +
+		var result = ('<tr class="' + response.eventID + '">' +
 			'<td style="display:none">' + response.eventID + '</td>' +
 			'<td>' + response.eventTitle + '</td>' +
 			'<td>' + response.eventDuration / 60000 + '</td>' +
@@ -283,7 +294,9 @@ var print = function() {
 
 
 function initializeClick(ajaxCall) {
-
+	$('#export').click(function(){
+		ajaxCall.exportEvents();
+	});
 	$('#getEventsByMail').click(function() {
 		var email = document.getElementById("email").value;
 		if (email)

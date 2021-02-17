@@ -1,8 +1,8 @@
 account.email=vaishnavi.rama@anywhere.co
 eclipse.preferences.version=1
-include.optional.configuration.files=true
+include.optional.configuration.files=false
 project.bucket=
 project.id=event-schedule-298012
-project.previousVersion.stop=true
-project.promote=false
-project.version=6
+project.previousVersion.stop=false
+project.promote=true
+project.version=8

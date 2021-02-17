@@ -1,5 +1,5 @@
 cron:
 - description: "test using aw and zapier"
   url: /cron/aw
-  schedule: every 2 minutes
+  schedule: every 24 hours
   timezone: Asia/Kolkata

@@ -20,22 +20,28 @@ import com.eventschedule.datastore.DataBaseException;
 import com.eventschedule.model.Event;
 import com.eventschedule.service.event.EventHelper;
 import com.eventschedule.service.event.EventServiceImp;
+import com.eventschedule.taskqueue.ConfirmationTask;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.taskqueue.Queue;
+import com.google.appengine.api.taskqueue.QueueFactory;
+import com.google.appengine.api.taskqueue.TaskOptions;
 
 @Controller
 @RequestMapping("/event")
 public class EventController {
 	EventServiceImp eventService = new EventServiceImp();
 	EventHelper eventHelper = new EventHelper();
-//return obj
+	
 	@PostMapping
 	@ResponseBody
 	public Event createEvent(@RequestBody Event event) {
 		try {
 			if (event == null)
 				return new Event();
-		return	eventService.addEvent(event);
+			Event obj = eventService.addEvent(event);
 			
+			return obj;
+
 		} catch (IllegalArgumentException e) {
 			return new Event();
 		} catch (Exception e) {
@@ -56,7 +62,7 @@ public class EventController {
 			if (event == null)
 				return new Event();
 			return eventService.modifyEvent(event);
-		} catch (EntityNotFoundException  | IllegalArgumentException e) {
+		} catch (EntityNotFoundException | IllegalArgumentException e) {
 			return new Event();
 		} catch (Exception e) {
 			return new Event();
